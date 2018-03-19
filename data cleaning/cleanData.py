@@ -32,6 +32,12 @@ def removeStopWords(data):
             data[i] = 0
     return data
 
+def calculateRelativePercent(data, filename):
+    data2 = {}
+    for word in data.keys():
+        data2[word] = float(data[word])/4051049
+
+    json.dump(data, open(filename[:-3]+"clean.second.txt", 'w'))
 
 def cleanData(filename):
     file = open(filename, 'r+')
@@ -39,6 +45,7 @@ def cleanData(filename):
     text = PersianWordCloud.remove_ar(text)
     text = text.split(" ")
     counter = Counter(text)
+    calculateRelativePercent(OrderedDict(counter.most_common()),filename)
     data = OrderedDict(counter.most_common(300))
     allWords = sum(counter.values())
     print(allWords)
@@ -53,5 +60,5 @@ def cleanData(filename):
     json.dump(newdict, open(filename[:-3]+"clean.txt", 'w'))
 
 
-# cleanData("../data set/1376.txt")
+cleanData("../data set/1376.txt")
 cleanData("../data set/1385.txt")

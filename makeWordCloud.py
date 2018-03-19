@@ -4,12 +4,19 @@ import numpy as np
 import json
 from collections import Counter, OrderedDict
 
-d ={1:"fdf", 4:"999"}
-json.dump(d, open("clean.txt", 'w'))
-data = json.load(open("/Users/zahra/Documents/GitHub/nlp-hw2/3/data set/1385.clean.txt"))
+def getMin(data):
+    minlist = {}
+    j=0
+    for i in data.keys():
+        if j>len(data)-150 and data[i]>0:
+            minlist[i] = 1/data[i]
+        j = j+1
+    return minlist
+data = json.load(open("data set/76_85.txt"))
 print(data)
-
 data = OrderedDict(data)
+data = getMin(data)
+print(data)
 wordcloud = PersianWordCloud(
     only_persian=True,
     max_words=100,
@@ -22,4 +29,4 @@ wordcloud = PersianWordCloud(
 ).generate_from_frequencies(frequencies=data)
 image = wordcloud.to_image()
 image.show()
-image.save('1385.png')
+image.save('76_85minDis.png')
