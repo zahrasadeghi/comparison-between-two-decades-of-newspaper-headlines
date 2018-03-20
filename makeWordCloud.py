@@ -12,14 +12,14 @@ def getMin(data):
             minlist[i] = 1/data[i]
         j = j+1
     return minlist
-data = json.load(open("data set/76_85.txt"))
+data = json.load(open("data set/1385.cleaner.txt"))
 print(data)
 data = OrderedDict(data)
-data = getMin(data)
+# data = getMin(data)
 print(data)
 wordcloud = PersianWordCloud(
     only_persian=True,
-    max_words=100,
+    max_words=150,
     margin=0,
     width=800,
     height=800,
@@ -29,4 +29,4 @@ wordcloud = PersianWordCloud(
 ).generate_from_frequencies(frequencies=data)
 image = wordcloud.to_image()
 image.show()
-image.save('76_85minDis.png')
+image.save('85-cleaner-2.png')
